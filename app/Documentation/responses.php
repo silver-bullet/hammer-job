@@ -34,7 +34,7 @@
  * @OA\Schema(
  *     schema="NotFoundError",
  *     @OA\Property(property="error", type="string", default="NotFoundError"),
- *     @OA\Property(property="messages", type="string", default="Item not found!")
+ *     @OA\Property(property="message", type="string", default="Item not found!")
  * )
  */
 
