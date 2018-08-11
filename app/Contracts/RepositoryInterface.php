@@ -39,4 +39,11 @@ interface RepositoryInterface {
      */
     public function index(array $data): Arrayable;
 
+    /**
+     * @param int $id
+     * @return Model
+     */
+    public function findById(int $id): Model;
+
 }
+

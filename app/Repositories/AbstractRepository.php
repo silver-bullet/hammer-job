@@ -122,7 +122,7 @@ class AbstractRepository implements RepositoryInterface
      * @return Model
      * @throws NotFoundException
      */
-    private function findById(int $id): Model
+    public function findById(int $id): Model
     {
         $entity = $this->builder->find($id);
 

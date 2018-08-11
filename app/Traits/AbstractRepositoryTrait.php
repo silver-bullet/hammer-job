@@ -45,7 +45,9 @@ trait AbstractRepositoryTrait
     protected function paginate(): AbstractRepository
     {
         if (isset($this->data["paginate"])
-            && ($this->data["paginate"] === "false"
+            && (
+                $this->data["paginate"] === "false"
+                || $this->data["paginate"] === false
                 || $this->data["paginate"] === 0
                 || $this->data["paginate"] === "0"
             )

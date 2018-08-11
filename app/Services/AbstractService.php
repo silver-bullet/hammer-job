@@ -64,6 +64,8 @@ class AbstractService implements ServiceInterface {
      */
     public function update(Request $request, int $id): AbstractResponse
     {
+        $this->repository->findById($id);
+
         $this->validator->update($request)->validate();
 
         $this->repository->update($request->all(), $id);
