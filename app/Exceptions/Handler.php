@@ -2,8 +2,11 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Database\QueryException;
+use Illuminate\Validation\ValidationException;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -46,6 +49,27 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof ValidationException) {
+            return response()->json([
+                "error" => "ValidationError",
+                "messages" => $exception->validator->errors()
+            ], 400);
+        }
+
+        if ($exception instanceof MethodNotAllowedHttpException) {
+            return response()->json([
+                "error" => "NotAllowedError",
+                "messages" => "Method is not allowed for the resource!"
+            ], 405);
+        }
+
+        if ($exception instanceof QueryException) {
+            return response()->json([
+                "error" => "DatabaseError",
+                "messages" => "Something went wrong, please try again later!"
+            ], 500);
+        }
+
         return parent::render($request, $exception);
     }
 }
