@@ -19,9 +19,7 @@ class Job extends Model
         "title",
         "description",
         "delivery_date",
-        "category_id",
-        "zipcode_id",
-        "created_at"
+        "created_at",
     ];
 
     /**

@@ -2,9 +2,7 @@
 
 namespace Tests\Feature\Category;
 
-use App\Models\Category;
 use App\Models\Job;
-use App\Models\ZipCode;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 

@@ -17,7 +17,6 @@ class ZipCode extends Model
     public const ALLOWED_ATTRIBUTES = [
         "id",
         "code",
-        "city_id",
     ];
 
     /**

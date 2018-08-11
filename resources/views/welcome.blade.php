@@ -56,18 +56,18 @@
             <div style="width:30%; float:left">
                 <div class="paragraph">
                     Based on the given requirements, I have implemented only the following endpoints:
-                    <ol>
-                        <li><b>GET</b> /api/category</li>
-                        <li><b>POST</b> /api/category/filter</li>
-
-                        <li><b>GET</b> /api/job</li>
-                        <li><b>POST</b> /api/job/filter</li>
-                        <li><b>GET</b> /api/job/{id}</li>
-                        <li><b>POST</b> /api/job</li>
-                        <li><b>PUT</b> /api/job/{id}</li>
-
-                        <li><b>POST</b> /api/zip-codes/filter</li>
-                    </ol>
+                    <ul style="list-style: none;">
+                        <li>1. <b>GET</b> /api/category</li>
+                        <li>2. <b>POST</b> /api/category/filter</li>
+                        <li>------------------------------</li>
+                        <li>3. <b>GET</b> /api/job</li>
+                        <li>4. <b>POST</b> /api/job/filter</li>
+                        <li>5. <b>GET</b> /api/job/{id}</li>
+                        <li>6. <b>POST</b> /api/job</li>
+                        <li>7. <b>PUT</b> /api/job/{id}</li>
+                        <li>------------------------------</li>
+                        <li>8.<b>POST</b> /api/zip-codes/filter</li>
+                    </ul>
                 </div>
             </div>
 
@@ -81,29 +81,34 @@
                             <span class="underline">STORE</span>,
                             <span class="underline">UPDATE</span>,
                             <span class="underline">SHOW</span>
-                            requests to retrieve resource's relations with the relation itself.<br>
+                            requests to retrieve resource's relations with the resource itself.<br>
                             <i>format: with[]=relation_name</i>
                         </li>
                         <li><b>paginate</b>: used with
                             <span class="underline">FILTER</span>,
                             <span class="underline">LIST</span>
-                            requests to enable/disable pagination.</li>
-                        <li>
-                            <b>conditions</b>: used with
-                            <span class="underline">FILTER</span>
-                            request only to filter the resource based on its attributes.<br>
-                            <i>format: conditions[attr_name:operator_name]=value</i><br>
-                            current supported operators: eq, in, gt<br>
-                            <i>ex: conditions[name:eq]=test</i><br>
-                            <i>ex: conditions[id:in]=2,4</i><br>
+                            requests to enable/disable pagination.
                         </li>
                         <li>
-                            <b>query</b>: used with
+                            <b>query</b>: used only with
                             <span class="underline">FILTER</span>
-                            request only to search the resources using resource's main key which is as the following:<br>
+                            request to search the resources by its main key which is as the following:<br>
                             Job: title<br>
                             ZipCode: code<br>
                             Category: name<br>
+                        </li>
+                        <li>
+                            <b>conditions</b>: used only with
+                            <span class="underline">FILTER</span>
+                            request to filter the resources based on both its direct attributes and its relations.<br>
+                            <i>format: conditions[attr_name:operator_name]=value</i><br>
+                            * attr_name could be nested to 2 levels at maximum<br>
+                            * operator_name could be: eq, in, gt<br>
+                            examples:<br>
+                            <i>conditions[name:eq]=test ## attributes</i><br>
+                            <i>conditions[id:in]=2,4    ## attributes</i><br>
+                            <i>conditions[zipCode.id:in]=2,4      ## 1 level relation</i><br>
+                            <i>conditions[zipCode.city.id:in]=2,4 ## 2 level relation</i><br>
                         </li>
                     </ul>
 
@@ -154,8 +159,12 @@
             <b>GET</b> /api/job<br>
             you may enable or disable pagination by sending paginate query parameter with the request.<br>
             To be able to filter based on region or category/service, you could easily use the filter endpoint<br>
-            <b>POST</b> /api/job?conditions[zipcode_id:in]=1,2,3&conditions[category_id:in]=4,5,6&with[]=category&with[]=zipCode<br>
-
+            examples:<br>
+            <b>POST</b> /api/job?conditions[category.id:in]=1,2,3&with[]=category&with[]=zipCode<br>
+            <b>POST</b> /api/job?conditions[zipCode.id:in]=1,2,3&with[]=category&with[]=zipCode<br>
+            <b>POST</b> /api/job?conditions[zipCode.city.id:in]=1,2,3&with[]=category&with[]=zipCode<br>
+            <b>POST</b> /api/job?conditions[zipCode.city.name:eq]=Berlin&with[]=category&with[]=zipCode<br>
+            Note that you can mix them up.
 
             <br><br><br>
 

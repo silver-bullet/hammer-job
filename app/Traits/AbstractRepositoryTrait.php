@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Repositories\AbstractRepository;
+use App\Respositories\Builder\Parameters\WithConditionParameter;
 use App\Respositories\Builder\Parameters\WithParam;
 use App\Respositories\Builder\Parameters\ConditionsParam;
 use App\Respositories\Builder\Parameters\QueryParam;
